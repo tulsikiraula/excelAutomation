@@ -28,7 +28,7 @@ public class ReadWorkbookTest {
 
         Iterator<Row> rowIterator = sheet.iterator();
 
-        Map<Integer,ArrayList<Object>> details = new HashMap<>();
+        Map<Integer,ArrayList<Object>> details = new TreeMap<>();
 
         while(rowIterator.hasNext()){
             XSSFRow row = (XSSFRow)rowIterator.next();
@@ -38,14 +38,15 @@ public class ReadWorkbookTest {
                 Cell cell = cellIterator.next();
                 cellVal.add(cell.getStringCellValue());
             }
-                details.put(row.getRowNum(), cellVal);
+                details.put(row.getRowNum()+1, cellVal);
             }
         Set<Integer> set = details.keySet();
         ArrayList<Object> list = null;
         for (int setVal : set) {
              list = details.get(setVal);
-        }
             System.out.println(list);
+
+        }
 
             
         }
