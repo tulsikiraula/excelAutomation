@@ -17,14 +17,25 @@ import java.io.IOException;
  */
 public class ReadWorkbookTest {
     public static void main(String[] args) throws FileNotFoundException {
+        Map<Integer,ArrayList<Object>> vinData = null;
+        Map<Integer,ArrayList<Object>> GGData = null;
+
+        vinData = readWorkbook("Vinworkbook.xlsx");
+        GGData = readWorkbook("GG_Cars.xlsx");
+        System.out.println("good");
+
+    }
+
+    private static Map<Integer,ArrayList<Object>> readWorkbook(String fileName ) throws FileNotFoundException {
         XSSFWorkbook xssfWorkbook = null;
-        FileInputStream fileInputStream = new FileInputStream(new File("Vinworkbook.xlsx"));
+        FileInputStream fileInputStream = new FileInputStream(new File(fileName));
         try {
              xssfWorkbook = new XSSFWorkbook(fileInputStream);
         } catch (IOException io) {
             io.printStackTrace();
         }
-        XSSFSheet sheet = xssfWorkbook.getSheet("Vin Definition");
+        //XSSFSheet sheet = xssfWorkbook.getSheet("Vin Definition");
+        XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
         Iterator<Row> rowIterator = sheet.iterator();
 
@@ -40,6 +51,11 @@ public class ReadWorkbookTest {
             }
                 details.put(row.getRowNum()+1, cellVal);
             }
+        showDetails(details);
+        return details;
+    }
+
+    private static void showDetails(Map<Integer, ArrayList<Object>> details) {
         Set<Integer> set = details.keySet();
         ArrayList<Object> list = null;
         for (int setVal : set) {
@@ -47,11 +63,9 @@ public class ReadWorkbookTest {
             System.out.println(list);
 
         }
-
-            
-        }
-
-
     }
+
+
+}
   
 
