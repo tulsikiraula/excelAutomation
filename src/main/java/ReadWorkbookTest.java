@@ -22,6 +22,8 @@ public class ReadWorkbookTest {
 
         vinData = readWorkbook("Vinworkbook.xlsx");
         GGData = readWorkbook("GG_Cars.xlsx");
+
+        showDetails(vinData,GGData);
         System.out.println("good");
 
     }
@@ -51,16 +53,25 @@ public class ReadWorkbookTest {
             }
                 details.put(row.getRowNum()+1, cellVal);
             }
-        showDetails(details);
         return details;
     }
 
-    private static void showDetails(Map<Integer, ArrayList<Object>> details) {
-        Set<Integer> set = details.keySet();
-        ArrayList<Object> list = null;
-        for (int setVal : set) {
-             list = details.get(setVal);
-            System.out.println(list);
+    private static void showDetails(Map<Integer, ArrayList<Object>> vin, Map<Integer, ArrayList<Object>> gg) {
+        Set<Integer> vinSet = vin.keySet();
+        Set<Integer> ggSet = vin.keySet();
+
+        ArrayList<Object> vinList = null;
+        ArrayList<Object> ggList = null;
+
+        for (int vinVal : vinSet) {
+             vinList = vin.get(vinVal);
+             for (int ggVal : ggSet){
+                 ggList = gg.get(ggVal);
+                 if(ggList.get(0).equals(vinList.get(0)))
+                     System.out.println(" model matched");
+
+             }
+            System.out.println(vinList);
 
         }
     }
